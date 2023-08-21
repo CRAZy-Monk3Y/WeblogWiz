@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(__dirname + "/uploads"));
 const salt = bcrypt.genSaltSync(5);
-const jwtSecret = `lkadsuhfal21hye08dsan`;
+const jwtSecret = process.env.NODE_JWT_SECRET;
 
 mongoose.connect(process.env.NODE_MONGOOSE_URL);
 
@@ -65,14 +65,18 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-  const { token } = req.cookies;
-  // verify token
-  jwt.verify(token, jwtSecret, {}, (err, info) => {
-    if (err) {
-      throw err;
-    }
-    res.json(info);
-  });
+  try {
+    const { token } = req.cookies;
+    // verify token
+    jwt.verify(token, jwtSecret, {}, (err, info) => {
+      if (err) {
+        throw err;
+      }
+      res.json(info);
+    });
+  } catch (error) {
+    res.json({ message: "No Valid Token" });
+  }
 });
 
 app.post("/logout", (req, res) => {
