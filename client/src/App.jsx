@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./routes/Home";
 import Error from "./components/Error";
@@ -10,8 +9,16 @@ import CreateNewPost from "./components/CreateNewPost";
 import Footer from "./components/Footer";
 import PostPage from "./routes/PostPage";
 import EditPost from "./routes/EditPost";
+import { useContext, useEffect } from "react";
+import { ModeContext } from "./ModeContext";
 
 const App = () => {
+  const { isDarkMode } = useContext(ModeContext);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("theme-dark", isDarkMode);
+  }, [isDarkMode]);
+
   return (
     <UserContextProvider>
       <main className="p-[10px] max-w-[768px] m-auto min-h-screen">

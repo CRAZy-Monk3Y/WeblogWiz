@@ -39,7 +39,7 @@ const Login = () => {
       <h2 className="text-[1.5rem] text-center font-semibold mb-4">Login</h2>
       <input
         type="text"
-        className="block mb-4 w-full p-[8px] bg-[#eee] rounded-md"
+        className={`block mb-4 w-full p-[8px] text-black bg-[#eee] rounded-md`}
         placeholder="username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
@@ -47,7 +47,7 @@ const Login = () => {
       />
       <input
         type="password"
-        className="block mb-4 w-full p-[8px] bg-[#eee] rounded-md"
+        className="block mb-4 w-full p-[8px] text-black bg-[#eee] rounded-md"
         placeholder="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}

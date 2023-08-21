@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import { ModeContext } from "../ModeContext";
 
 const Header = () => {
   const { userInfo, setUserInfo } = useContext(UserContext);
+  const { isDarkMode, setIsDarkMode } = useContext(ModeContext);
 
   const logout = () => {
     try {
@@ -31,6 +33,10 @@ const Header = () => {
     }
   }, []);
 
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
+
   const username = userInfo?.username;
 
   return (
@@ -38,7 +44,16 @@ const Header = () => {
       <NavLink to="/" className="font-bold text-[1.6rem]">
         WeBlogWiz
       </NavLink>
-      <nav className="text-[#222] flex flex-col md:flex-row gap-3 md:items-center">
+      <nav
+        className={`${
+          !isDarkMode && "text-[#222]"
+        } flex flex-col md:flex-row gap-3 md:items-center`}
+      >
+        <label className="switch h-4">
+          <input type="checkbox" checked={isDarkMode} onChange={toggleTheme} />
+          <span className="slider round"></span>
+        </label>
+
         {username ? (
           <>
             <p className="text-gray-500">Welcome {username}</p>
