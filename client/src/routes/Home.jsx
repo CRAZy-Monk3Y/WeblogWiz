@@ -20,8 +20,18 @@ const Home = () => {
 
   return (
     <>
-      {posts.length > 0 &&
-        posts.map((post) => <Post key={post._id} {...post} />)}
+      {posts.length > 0 ? (
+        posts.map((post) => <Post key={post._id} {...post} />)
+      ) : (
+        <div className="w-full h-[60vh] flex items-center justify-center">
+          <h1
+            className="text-3xl"
+            style={{ animation: "ping 4s cubic-bezier(0, 0, 0.2, 1) infinite" }}
+          >
+            No Posts Found
+          </h1>
+        </div>
+      )}
     </>
   );
 };

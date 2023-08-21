@@ -22,7 +22,8 @@ const PostPage = () => {
         const response = await fetch(`http://localhost:4000/post/${id}`, {
           method: "DELETE",
           credentials: "include",
-        });
+        }).catch((err) => alert("Can not Delete this Post"));
+
         if (response.ok) {
           setRedirect(true);
           alert(`Post Deleted Successfully। `);
