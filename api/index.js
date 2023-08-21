@@ -8,6 +8,7 @@ const Post = require("./models/Post");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const multer = require("multer");
+const pathFile = require("path");
 require("dotenv").config();
 
 const uploadMiddleware = multer({ dest: "uploads/" });
@@ -125,6 +126,29 @@ app.get("/post/:id", async (req, res) => {
   const post = await Post.findById(id).populate("author", ["username"]);
 
   res.json(post);
+});
+
+app.delete("/post/:id", uploadMiddleware.single("file"), async (req, res) => {
+  const { id } = req.params;
+  const { token } = req.cookies;
+  try {
+    jwt.verify(token, jwtSecret, {}, async (err, info) => {
+      if (err) {
+        throw err;
+      }
+      const postGet = await Post.findById(id);
+      const imagePath = pathFile.join(__dirname, postGet.cover);
+      if (postGet) {
+        const postDelete = await Post.deleteOne({ _id: id });
+      }
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+      res.json({ message: `Post ${id} deleted successfully.  ` });
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.put("/post", uploadMiddleware.single("file"), async (req, res) => {
