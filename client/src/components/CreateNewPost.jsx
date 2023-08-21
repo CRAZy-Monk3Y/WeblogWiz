@@ -69,7 +69,7 @@ const CreateNewPost = () => {
       onSubmit={handleFormSubmit}
     >
       <input
-        className="w-full p-2"
+        className="w-full p-2 text-black"
         type="title"
         placeholder="Title"
         value={title}
@@ -79,7 +79,7 @@ const CreateNewPost = () => {
         required
       />
       <input
-        className="w-full p-2"
+        className="w-full p-2 text-black"
         type="summary"
         placeholder="Summary"
         value={summary}

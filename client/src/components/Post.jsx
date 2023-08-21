@@ -1,9 +1,17 @@
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
+import { ModeContext } from "../ModeContext";
+import { useContext } from "react";
 
 const Post = ({ title, summary, cover, createdAt, author, _id }) => {
+  const { isDarkMode } = useContext(ModeContext);
+
   return (
-    <div className="my-4 bg-slate-300 p-4 rounded-lg flex gap-4 min-h-[250px] md:flex-row flex-col">
+    <div
+      className={`my-4 ${
+        !isDarkMode && "bg-slate-300"
+      }p-4 rounded-lg flex gap-4 min-h-[250px] md:flex-row flex-col`}
+    >
       <Link to={`/post/${_id}`} className="md:w-[45%] w-full">
         <img
           src={`http://localhost:4000/${cover}`}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
-import { Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 
 const EditPost = () => {
   const [title, setTitle] = useState("");
@@ -81,7 +81,7 @@ const EditPost = () => {
       onSubmit={handleFormSubmit}
     >
       <input
-        className="w-full p-2"
+        className="w-full p-2 text-black"
         type="title"
         placeholder="Title"
         value={title}
@@ -90,7 +90,7 @@ const EditPost = () => {
         }}
       />
       <input
-        className="w-full p-2"
+        className="w-full p-2 text-black"
         type="summary"
         placeholder="Summary"
         value={summary}
@@ -109,9 +109,17 @@ const EditPost = () => {
         theme="snow"
         onChange={(newValue) => setContent(newValue)}
       />
-      <button className="w-full p-2 bg-gray-400 hover:bg-gray-600 hover:text-white rounded-md">
-        Update Post
-      </button>
+      <div className="flex gap-2">
+        <button className="w-full p-2 m-2 bg-gray-400 hover:bg-gray-600 hover:text-white rounded-md">
+          Update Post
+        </button>
+        <Link
+          to={`/post/${id}`}
+          className="w-full p-2 m-2 bg-gray-400 hover:bg-gray-600 hover:text-white rounded-md text-center"
+        >
+          Cancel Edit
+        </Link>
+      </div>
     </form>
   );
 };
