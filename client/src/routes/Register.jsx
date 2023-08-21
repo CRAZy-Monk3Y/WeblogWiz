@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +41,7 @@ const Register = () => {
       if (response.status !== 200) {
         alert("Registration failed. try again later.");
       }
+      setRedirect(true);
     } catch (error) {
       console.log(error);
     } finally {
@@ -46,6 +49,10 @@ const Register = () => {
       setPassword("");
     }
   };
+
+  if (redirect) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <form className="max-w-[400px] m-auto" onSubmit={handleFormSubmit}>
